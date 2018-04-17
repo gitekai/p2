@@ -1,0 +1,33 @@
+{
+  "name": "ERP2D2",
+  "version": "v0.0.1",
+  "description": "ERP2D2 the erp substitution for my company",
+  "main": "bin/www.js",
+  "author": "Romeo Klaus, Hesch",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "./node_modules/babel-cli/bin/babel-node.js server/src/app.js",
+    "build": "./node_modules/babel-cli/bin/babel.js -d ./dist ./server/src -s"
+  },
+  "dependencies": {
+    "casual": "^1.5.19",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql-tools": "^2.24.0",
+    "jsonwebtoken": "^8.2.1",
+    "pg": "^7.4.1",
+    "sequelize": "^4.37.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "sqlite3": "^4.0.0"
+  }
+}

@@ -1,4 +1,3 @@
-import { config } from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import graphqlHTTP from 'express-graphql';
@@ -9,7 +8,6 @@ import context from './context';
 
 const app = express();
 
-config();
 app.use(cors());
 
 app.use((req, res, next) => {
