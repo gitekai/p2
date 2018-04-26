@@ -7,11 +7,35 @@ type Contacto {
   departamento: String
   birthdate: String
   recibeRegaloEnNavidad: Boolean
-  id_padre: Int
-  correos: [String! ]!
-  telefonos: [String! ]!
-  direcciones: [String! ]!
+  padre: Int
+  emails: [String! ]!
+  direcciones: [ContactoDireccion! ]!
+  telefonos: [ContactoTelefono! ]!
+}
 
+type ContactoDireccion {
+  codigoPostal: String!
+  direccion: String!
+  direccionDetalle: String
+  ciudad: String! 
+  provinciaRegion: String
+  idPais: Int!
+  longitud: Int
+  latitud: Int 
+  descripcion: String
+}
+
+enum TipoTelefono {
+  movil
+  fax
+  fijo
+}
+
+type ContactoTelefono {
+  idPrefijo: Int! 
+  numero: String!
+  tipo: TipoTelefono! 
+  descripcion: String
 }
 
 `;

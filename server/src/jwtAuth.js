@@ -10,5 +10,6 @@ export default (req) => {
     return userId;
   }
 
-  throw new Error('Not authenticated');
+  // throw new Error('Not authenticated');
+  console.log("Throw ERror ");
 };

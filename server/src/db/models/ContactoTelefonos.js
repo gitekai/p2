@@ -17,7 +17,7 @@ export default (sequelize, DataTypes) => {
         },
         validate: {
           isTelephonNumber(value) {
-            const errorChars = value.split('').filter(c => /(\s|[a-z])/i.test(c) !== 0);
+            const errorChars = value.split('').filter(c => /(\s|[0-9])/.test(c) !== true);
             if (errorChars.length > 0) {
               throw new Error('Only spaces and Numbers are allowed as telephone number values ');
             }

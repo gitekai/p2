@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
       },
       ciudad: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       codigoPostal: {
@@ -30,11 +30,11 @@ export default (sequelize, DataTypes) => {
       descripcion: {
         type: DataTypes.TEXT,
       },
-      latitude: {
+      latitud: {
         type: DataTypes.FLOAT,
         validate: { min: -90, max: 90 },
       },
-      longitude: {
+      longitud: {
         type: DataTypes.FLOAT,
         validate: { min: -180, max: 180 },
       },
@@ -42,7 +42,7 @@ export default (sequelize, DataTypes) => {
     {
       validate: {
         bothCoordsOrNone() {
-          if ((this.latitude === null) !== (this.longitude === null)) {
+          if ((!this.latitud) !== (!this.longitud)) {
             throw new Error('Require either both latitude and longitude or neither');
           }
         },

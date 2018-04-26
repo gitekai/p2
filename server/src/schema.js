@@ -1,8 +1,9 @@
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
-import { Query, Mutation, Subscription } from './resolver';
+import resolver from './resolver';
 
 
 import Contacto from './domainObjects/Contacto/schema';
+import Pais from './domainObjects/Pais/schema';
 import mock from './mock';
 
 
@@ -31,13 +32,13 @@ const SchemaDefinition = `
   }
 `;
 
-/*
 const resolvers = {
-  RootQuery: Query,
-  RootMutation: Mutation,
-  RootSubscription: Subscription,
+  RootQuery: resolver.Query,
+  RootMutation: resolver.Mutation,
+  Contacto: resolver.Contacto,
+  RootSubscription: resolver.Subscription,
 };
-*/
+
 
 const schema = makeExecutableSchema({
   typeDefs: [
@@ -46,14 +47,17 @@ const schema = makeExecutableSchema({
     RootMutation,
     RootSubscription,
     Contacto,
+    Pais,
   ],
-  // resolvers,
+  resolvers,
 });
 
+
+/*
 addMockFunctionsToSchema({
   schema,
   mock,
   preserveResolvers: true,
 });
-
+*/
 export default schema;
