@@ -1,4 +1,4 @@
-import { createMutation, findAll, findById } from '../../utils';
+import { createMutation, findAll, findById } from '../../utils/resolverUtils';
 
 export const Query = {
   paises: findAll('paises'),

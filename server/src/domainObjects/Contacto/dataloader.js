@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import genericLoader from '../../../utils/loaderUtils';
+import genericLoader from '../../utils/loaderUtils';
 
 
 const direccionesContacto = genericLoader('contactoDirecciones', 'idContacto');

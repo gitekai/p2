@@ -1,5 +1,5 @@
-import { PubSub, withFilter } from 'graphql-subscriptions';
-import { updateMutation, findAll, findById } from '../../../utils/resolverUtils';
+import { PubSub } from 'graphql-subscriptions';
+import { updateMutation, findAll, findById } from '../../utils/resolverUtils';
 
 const pubsub = new PubSub();
 
@@ -40,7 +40,6 @@ const createContacto = async (obj, args, context) =>
         },
       );
 
-
     // creamos las direcciones asociadas
     const direccionesArrObj = (direcciones) ? direcciones.map(direccion =>
       Object.assign(
@@ -77,11 +76,8 @@ const createContacto = async (obj, args, context) =>
         },
       );
 
-    let retCorreos;
-    let retTelefonos;
-    let retDirecciones;
     try {
-      [retCorreos, retTelefonos, retDirecciones] = await Promise.all([correosPromise, telefonosPromise, direccionesPromise]);
+      await Promise.all([correosPromise, telefonosPromise, direccionesPromise]);
     } catch (err) {
       throw new Error(`Could not resolve all Promises
      ${err}`);
@@ -107,13 +103,12 @@ export const Mutation = {
 
 export const Subscription = {
   contactAdded: {
-    subscribe: () => {
-      return pubsub.asyncIterator('contactAdded');
-    },
-    resolve: (payload) => {
-      return payload;
-    }
-  }
+    subscribe: () =>
+      pubsub.asyncIterator('contactAdded'),
+
+    resolve: payload =>
+      payload,
+  },
 };
 
 export const Contacto = {

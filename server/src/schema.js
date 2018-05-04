@@ -4,6 +4,8 @@ import resolver from './resolver';
 
 import Contacto from './domainObjects/Contacto/schema';
 import Pais from './domainObjects/Pais/schema';
+import Prefijo from './domainObjects/Prefijo/schema';
+
 import mock from './mock';
 
 
@@ -48,16 +50,16 @@ const schema = makeExecutableSchema({
     RootSubscription,
     Contacto,
     Pais,
+    Prefijo,
   ],
   resolvers,
 });
 
-
-/*
 addMockFunctionsToSchema({
   schema,
   mock,
   preserveResolvers: true,
 });
-*/
+
+
 export default schema;
