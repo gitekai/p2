@@ -1,6 +1,7 @@
 const Contacto = `
 
 type Contacto {
+  id: ID!
   nombre: String! 
   apellidos: String!
   cargo: String
@@ -10,10 +11,12 @@ type Contacto {
   padre: Int
   emails: [String! ]!
   direcciones: [ContactoDireccion! ]!
+  "gesAntiguos y ges"
   telefonos: [ContactoTelefono! ]!
 }
 
 type ContactoDireccion {
+  id: ID!
   codigoPostal: String!
   direccion: String!
   direccionDetalle: String
@@ -32,6 +35,7 @@ enum TipoTelefono {
 }
 
 type ContactoTelefono {
+  id: ID!
   idPrefijo: Int! 
   numero: String!
   tipo: TipoTelefono! 

@@ -118,5 +118,4 @@ export const Contacto = {
     context.dataloaders.telefonosContactoLoader.load(contacto.id),
   emails: (contacto, args, context) =>
     context.dataloaders.correosContactoLoader.load(contacto.id),
-
 };
