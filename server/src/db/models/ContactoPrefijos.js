@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Prefijos = sequelize.define(
-    'prefijos',
+    'contactoPrefijos',
     {
       id: {
         type: DataTypes.INTEGER,

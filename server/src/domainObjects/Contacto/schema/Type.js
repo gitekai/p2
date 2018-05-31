@@ -1,6 +1,6 @@
 const Contacto = `
 
-type Contacto {
+type ContactoPersona {
   id: ID!
   nombre: String! 
   apellidos: String!

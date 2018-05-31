@@ -43,7 +43,7 @@ export default (sequelize, DataTypes) => {
         unique: 'uq_contacto_prefijo_num',
       },
     });
-    Telefonos.belongsTo(models.prefijos, {
+    Telefonos.belongsTo(models.contactoPrefijos, {
       foreignKey: {
         allowNull: false,
         name: 'idPrefijo',
