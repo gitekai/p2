@@ -4,8 +4,8 @@ import {
   Query as contacotQuery,
   Mutation as contactoMutation,
   Subscription as contactoSubscription,
-  Contacto,
-} from './domainObjects/Contacto/resolver';
+  PersonaContacto,
+} from './domainObjects/PersonaContacto/resolver';
 
 import {
   Query as paisQuery,
@@ -38,7 +38,7 @@ const resolver = {
     contactoSubscription,
   ),
 
-  Contacto,
+  PersonaContacto,
 };
 
 export default resolver;

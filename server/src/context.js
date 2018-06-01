@@ -1,6 +1,6 @@
 import data from './db/models';
 import getUserId from './jwtAuth';
-import contactoLoader from './domainObjects/Contacto/dataloader';
+import contactoLoader from './domainObjects/PersonaContacto/dataloader';
 
 export default request => ({
   author_id: getUserId(request), // should come from the request for an authentified user

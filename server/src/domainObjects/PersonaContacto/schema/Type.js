@@ -1,7 +1,8 @@
 const Contacto = `
 
-type ContactoPersona {
+type PersonaContacto {
   id: ID!
+  tipo: TipoContacto!
   nombre: String! 
   apellidos: String!
   cargo: String
@@ -10,12 +11,12 @@ type ContactoPersona {
   recibeRegaloEnNavidad: Boolean
   padre: Int
   emails: [String! ]!
-  direcciones: [ContactoDireccion! ]!
+  direcciones: [PersonaContactoDireccion! ]!
   "gesAntiguos y ges"
   telefonos: [ContactoTelefono! ]!
 }
 
-type ContactoDireccion {
+type PersonaContactoDireccion {
   id: ID!
   codigoPostal: String!
   direccion: String!
@@ -23,9 +24,14 @@ type ContactoDireccion {
   ciudad: String! 
   provinciaRegion: String
   idPais: Int!
-  longitud: Int
-  latitud: Int 
+  longitud: Float
+  latitud: Float
   descripcion: String
+}
+enum TipoContacto {
+  primario
+  secundario
+  tecnico
 }
 
 enum TipoTelefono {

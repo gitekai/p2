@@ -4,8 +4,13 @@ function cambiaNombres(nombre) {
 
 export default (sequelize, DataTypes) => {
   const Persona = sequelize.define(
-    'contactoPersona',
+    'personasContacto',
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -39,6 +44,15 @@ export default (sequelize, DataTypes) => {
     },
     {},
   );
+
+  Persona.associate = (models) => {
+    Persona.belongsTo(models.contactos, {
+      foreignKey: {
+        name: 'idContacto',
+        primaryKey: true,
+      },
+    });
+  };
 
   return Persona;
 };

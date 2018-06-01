@@ -1,8 +1,8 @@
 const Query = `
 
 extend type RootQuery{
-  contacto(id: Int! ): Contacto
-  contactos(first: Int, skip: Int, where: queryContacto): [Contacto! ]!
+  contacto(id: Int! ): PersonaContacto
+  contactos(first: Int, skip: Int, where: queryContacto): [PersonaContacto! ]!
 }
 
 input queryContacto{

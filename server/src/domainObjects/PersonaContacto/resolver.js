@@ -1,28 +1,39 @@
 import { PubSub } from 'graphql-subscriptions';
-import { updateMutation, findAll, findById } from '../../utils/resolverUtils';
+import { updateMutation, findAllWjoined, findByIdWjoined } from '../../utils/resolverUtils';
+import { GraphQLError } from 'graphql';
 
 const pubsub = new PubSub();
 
-const createContacto = async (obj, args, context) =>
+const createPersonaContacto = async (obj, args, context) =>
   context.models.sequelize.transaction(async (trans) => {
     const {
       emails,
       telefonos,
       direcciones,
+      tipo,
+      idPrefijo,
       ...contacto
     } = args.data;
 
+
     let createdContacto;
+
     try {
-      // creamos el contacto
-      createdContacto = await context.models.contactos.create(contacto, {
+      //Creamos el Supertipo Contacto 
+      createdContacto = await context.models.contactos.create({ tipo }, {
         transaction: trans,
         raw: true,
       });
+      contacto.idContacto = createdContacto.id;
     } catch (e) {
-      throw new Error(`ERROR llamando a contactos.create in createContacto
-      ${e}`);
+      throw new Error('Error when creating Contacto');
     }
+
+    // creamos la persona de contacto 
+    const personaContactoPromise = context.models.personasContacto.create(contacto, {
+      transaction: trans,
+      raw: true,
+    });
 
     // creamos los correos asociados
     const correosArrObj = (emails) ? emails.map(email => ({
@@ -33,7 +44,7 @@ const createContacto = async (obj, args, context) =>
     const correosPromise = (correosArrObj === null) ? [] :
       context.models.contactoCorreos.bulkCreate(
         correosArrObj,
-        {
+        {     
           validate: true,
           transaction: trans,
           raw: true,
@@ -41,29 +52,13 @@ const createContacto = async (obj, args, context) =>
       );
 
     // creamos las direcciones asociadas
-    const direccionesArrObj = (direcciones) ? direcciones.map(direccion =>
-      Object.assign(
-        direccion,
-        {
-          idContacto: createdContacto.id,
-        },
-      )) : null;
 
-    const direccionesPromise = (direccionesArrObj === null) ? [] :
-      context.models.contactoDirecciones.bulkCreate(
-        direccionesArrObj,
-        {
-          validate: true,
-          transaction: trans,
-        },
-      );
 
     // creamos los telefonos
     const telefonosArrObj = (telefonos) ? telefonos.map(tel => Object.assign(
       tel,
       {
         idContacto: createdContacto.id,
-        idPrefijo: 1,
       },
     )) : null;
 
@@ -76,8 +71,9 @@ const createContacto = async (obj, args, context) =>
         },
       );
 
+    let personaContacto;
     try {
-      await Promise.all([correosPromise, telefonosPromise, direccionesPromise]);
+      [personaContacto] = await Promise.all([personaContactoPromise, correosPromise, telefonosPromise]);
     } catch (err) {
       throw new Error(`Could not resolve all Promises
      ${err}`);
@@ -85,19 +81,19 @@ const createContacto = async (obj, args, context) =>
 
     pubsub.publish('contactAdded', createdContacto);
 
-    return createdContacto;
+    return Object.assign(personaContacto.toJSON(),createdContacto.toJSON());
   });
 
 
-const seqModel = 'contactos';
+const seqModel = 'personasContacto';
 
 export const Query = {
-  contactos: findAll(seqModel),
-  contacto: findById(seqModel),
+  contactos: findAllWjoined(seqModel, 'contactos'),
+  contacto: findByIdWjoined(seqModel, 'contactos'),
 };
 
 export const Mutation = {
-  createContacto,
+  createPersonaContacto,
   modifyContacto: updateMutation(seqModel),
 };
 
@@ -111,7 +107,7 @@ export const Subscription = {
   },
 };
 
-export const Contacto = {
+export const PersonaContacto = {
   direcciones: (contacto, args, context) =>
     context.dataloaders.direccionesContactoLoader.load(contacto.id),
   telefonos: (contacto, args, context) =>

@@ -24,13 +24,13 @@ function modifyWhere(obj) {
         a[attr][Op.notIRegexp] = obj[key];
       } else {
         a[attr][Op.eq] = obj[key];
-      } 
+      }
 
       obj[attr] = {};
       Object.defineProperties(obj,
         {
           [attr]: Object.getOwnPropertyDescriptor(a, attr),
-        } 
+        }
       );
       delete obj[key];
     });
@@ -94,3 +94,38 @@ export const findAll = model =>
     });
   };
 
+export const findAllWjoined = (model, related) =>
+  (obj, args, context) => {
+    const { where = {}, first = 10, skip = 0 } = args;
+    modifyWhere(where);
+    return context.models[model].findAll({
+      include: [context.models[related]],
+      limit: first,
+      offset: skip,
+      where,
+    }).then((res) => {
+
+      const stringifiedSequelizeObject = res.map((seqObj) => {
+        const {
+          contacto,
+          ...personaContacto
+        } = seqObj.toJSON();
+        return Object.assign(contacto, personaContacto);
+      });
+
+      return stringifiedSequelizeObject;
+    });
+  };
+
+export const findByIdWjoined = (model, related) =>
+  (obj, args, context) =>
+    context.models[model].findById(args.id, {
+      include: context.models[related],
+    }).then((res) => {
+
+      const {
+        contacto,
+        ...personaContacto
+      } = res.toJSON();
+      return Object.assign(contacto, personaContacto);
+    });

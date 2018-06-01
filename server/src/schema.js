@@ -3,7 +3,7 @@ import CustomScalarTypes from './CustomScalars';
 import resolver from './resolver';
 
 
-import Contacto from './domainObjects/Contacto/schema';
+import PersonaContacto from './domainObjects/PersonaContacto/schema';
 import Pais from './domainObjects/Pais/schema';
 import Prefijo from './domainObjects/Prefijo/schema';
 import Producto from './domainObjects/Producto/schema';
@@ -39,7 +39,7 @@ const SchemaDefinition = `
 const resolvers = {
   RootQuery: resolver.Query,
   RootMutation: resolver.Mutation,
-  Contacto: resolver.Contacto,
+  PersonaContacto: resolver.PersonaContacto,
   RootSubscription: resolver.Subscription,
   Date: resolver.Date,
 };
@@ -52,7 +52,7 @@ const schema = makeExecutableSchema({
     RootMutation,
     RootSubscription,
     CustomScalarTypes,
-    Contacto,
+    PersonaContacto,
     Pais,
     Prefijo,
     Producto,

@@ -1,7 +1,7 @@
 const Subscription = `
 
 extend type RootSubscription {
-  contactAdded: Contacto
+  contactAdded: PersonaContacto
 }
 `;
 

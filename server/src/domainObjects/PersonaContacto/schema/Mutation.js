@@ -1,21 +1,22 @@
 const createContacto = `
 
 extend type RootMutation {
-  createContacto(data: createContacto!): Contacto
+  createPersonaContacto(data: createContacto!): PersonaContacto
 }
 
 input createContacto{
   nombre: String! 
+  tipo: TipoContacto!
   apellidos: String!
   cargo: String
   departamento: String
-  birthdate: String
+  birthdate: Date
   recibeRegaloEnNavidad: Boolean
   padre: Int
   linkedIN: String
   emails: [String! ]
   telefonos: [createContactoTelefono! ]
-  direcciones: [createContactoDireccion! ]
+  direcciones: [createPersonaContactoDireccion! ]
 }
 
 input createContactoTelefono {
@@ -25,7 +26,7 @@ input createContactoTelefono {
   descripcion: String
 }
 
-input createContactoDireccion {
+input createPersonaContactoDireccion {
   codigoPostal: String!
   direccion: String!
   direccionDetalle: String
@@ -42,7 +43,7 @@ input createContactoDireccion {
 const addCorreos = `
 
  extend type RootMutation{
-  addCorreos(data: addContactoCorreos!): Contacto
+  addCorreos(data: addContactoCorreos!): PersonaContacto
  }
 
  input addContactoCorreos {
@@ -54,7 +55,7 @@ const addCorreos = `
 const addTelefonos = `
 
 extend type RootMutation {
-  addTelefonos(data: addContactoTelefonos!): Contacto
+  addTelefonos(data: addContactoTelefonos!): PersonaContacto
 }
 
 input addContactoTelefonos {
@@ -67,7 +68,7 @@ input addContactoTelefonos {
 const addDirecciones = `
 
 extend type RootMutation {
-  addDireccionesToContact(data: addContactoDirecciones! ): Contacto
+  addDireccionesToContact(data: addContactoDirecciones! ): PersonaContacto
 }
 
 input addContactoDirecciones {
@@ -79,7 +80,7 @@ input addContactoDirecciones {
 const modifyContacto = `
 
 extend type RootMutation{
-  modifyContacto(data: modifyContacto!): Contacto
+  modifyContacto(data: modifyContacto!): PersonaContacto
 }
 
 input modifyContacto{
