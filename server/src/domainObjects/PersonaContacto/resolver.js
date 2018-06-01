@@ -81,15 +81,16 @@ const createPersonaContacto = async (obj, args, context) =>
 
     pubsub.publish('contactAdded', createdContacto);
 
-    return Object.assign(personaContacto.toJSON(),createdContacto.toJSON());
+    return Object.assign(createdContacto.toJSON(), personaContacto.toJSON());
   });
 
 
 const seqModel = 'personasContacto';
+const joinedModel = 'contactos';
 
 export const Query = {
-  contactos: findAllWjoined(seqModel, 'contactos'),
-  contacto: findByIdWjoined(seqModel, 'contactos'),
+  contactos: findAllWjoined(seqModel, joinedModel),
+  contacto: findByIdWjoined(seqModel, joinedModel),
 };
 
 export const Mutation = {
@@ -108,10 +109,10 @@ export const Subscription = {
 };
 
 export const PersonaContacto = {
-  direcciones: (contacto, args, context) =>
-    context.dataloaders.direccionesContactoLoader.load(contacto.id),
-  telefonos: (contacto, args, context) =>
-    context.dataloaders.telefonosContactoLoader.load(contacto.id),
-  emails: (contacto, args, context) =>
-    context.dataloaders.correosContactoLoader.load(contacto.id),
+  /*direcciones: (contacto, args, context) =>
+    context.dataloaders.direccionesContactoLoader.load(contacto.id),*/
+  telefonos: (personaContacto, args, context) =>
+    context.dataloaders.telefonosContactoLoader.load(personaContacto.idContacto),
+  emails: (personaContacto, args, context) =>
+    context.dataloaders.correosContactoLoader.load(personaContacto.idContacto),
 };

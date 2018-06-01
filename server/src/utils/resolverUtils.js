@@ -104,7 +104,9 @@ export const findAllWjoined = (model, related) =>
       offset: skip,
       where,
     }).then((res) => {
-
+      if (!res) {
+        return [];
+      }
       const stringifiedSequelizeObject = res.map((seqObj) => {
         const {
           contacto,
@@ -122,7 +124,9 @@ export const findByIdWjoined = (model, related) =>
     context.models[model].findById(args.id, {
       include: context.models[related],
     }).then((res) => {
-
+      if (!res) {
+        return null;
+      }
       const {
         contacto,
         ...personaContacto
