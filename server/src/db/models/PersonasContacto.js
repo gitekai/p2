@@ -11,10 +11,10 @@ export default (sequelize, DataTypes) => {
   const Persona = sequelize.define(
     'personasContacto',
     {
-      id: {
+      idContacto: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+        allowNull: false,
+        unique: true,
       },
       nombre: {
         type: DataTypes.STRING,
@@ -28,6 +28,12 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         set(val) {
           this.setDataValue('apellidos', cambiaNombres(val));
+        },
+      },
+      linkedIn: {
+        type: DataTypes.STRING,
+        validate: {
+          isUrl: true,
         },
       },
       descripcion: {
@@ -49,6 +55,9 @@ export default (sequelize, DataTypes) => {
     },
     {},
   );
+
+  // Es lo que hay que hacer para desactivar el primary key creado automaticamente
+  Persona.removeAttribute('id');
 
   Persona.associate = (models) => {
     Persona.belongsTo(models.contactos, {

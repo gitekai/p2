@@ -7,7 +7,8 @@ type PersonaContacto {
   apellidos: String!
   cargo: String
   departamento: String
-  birthdate: String
+  linkedIn: String
+  birthdate: Date
   recibeRegaloEnNavidad: Boolean
   padre: Int
   emails: [String! ]!

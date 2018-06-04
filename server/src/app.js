@@ -41,7 +41,7 @@ server.use(
   }),
 );
 
-server.use('/v1/erp2d2', graphiqlExpress({
+server.use('/', graphiqlExpress({
   endpointURL: '/graphql',
   subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`,
 }));

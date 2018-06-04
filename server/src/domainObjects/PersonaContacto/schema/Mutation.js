@@ -13,7 +13,7 @@ input createContacto{
   birthdate: Date
   recibeRegaloEnNavidad: Boolean
   padre: Int
-  linkedIN: String
+  linkedIn: String
   emails: [String! ]
   telefonos: [createContactoTelefono! ]
   direcciones: [createPersonaContactoDireccion! ]

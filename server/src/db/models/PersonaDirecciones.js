@@ -50,18 +50,14 @@ export default (sequelize, DataTypes) => {
     },
   );
 
-/*  Direcciones.associate = (models) => {
+  Direcciones.associate = (models) => {
     Direcciones.belongsTo(models.personasContacto, {
-      foreignKey: {
-        name: 'kk',
-        targetKey: 'id',
-        unique: 'kk',
-        //primaryKey: true,     
-      },
+      foreignKey: 'idPersonaContacto',
+        targetKey: 'idContacto',
     });
-  };
-*/
 
+    
+  };
 
   return Direcciones;
 };
