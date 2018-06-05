@@ -52,11 +52,14 @@ export default (sequelize, DataTypes) => {
 
   Direcciones.associate = (models) => {
     Direcciones.belongsTo(models.personasContacto, {
-      foreignKey: 'idPersonaContacto',
-        targetKey: 'idContacto',
+      foreignKey:  {
+        name: 'idPersonaContacto',
+        primaryKey: true,
+      },
+      targetKey: 'idContacto',
     });
 
-    
+
   };
 
   return Direcciones;

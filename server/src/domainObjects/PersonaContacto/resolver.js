@@ -44,15 +44,12 @@ const createPersonaContacto = async (obj, args, context) =>
     const correosPromise = (correosArrObj === null) ? [] :
       context.models.contactoCorreos.bulkCreate(
         correosArrObj,
-        {     
+        {
           validate: true,
           transaction: trans,
           raw: true,
         },
       );
-
-    // creamos las direcciones asociadas
-
 
     // creamos los telefonos
     const telefonosArrObj = (telefonos) ? telefonos.map(tel => Object.assign(
@@ -71,9 +68,33 @@ const createPersonaContacto = async (obj, args, context) =>
         },
       );
 
+    // creamos las direcciones
     let personaContacto;
     try {
-      [personaContacto] = await Promise.all([personaContactoPromise, correosPromise, telefonosPromise]);
+      personaContacto = await personaContactoPromise; 
+
+    } catch (err) {
+      throw new Error('Could not create Persona de Contacto');
+    }
+    
+    const direccionesArrObj = (direcciones) ? direcciones.map(direccion => Object.assign(
+      direccion,
+      {
+        idPersonaContacto: personaContacto.idContacto,
+      },
+    )) : null;
+
+    const direccionesPromise = (direccionesArrObj === null) ? [] :
+      context.models.direccionesPersona.bulkCreate(
+        direccionesArrObj,
+        {
+          validate: true,
+          transaction: trans,
+        },
+      );
+
+    try {
+      await Promise.all([correosPromise, telefonosPromise, direccionesPromise]);
     } catch (err) {
       throw new Error(`Could not resolve all Promises
      ${err}`);
@@ -109,8 +130,8 @@ export const Subscription = {
 };
 
 export const PersonaContacto = {
-  /*direcciones: (contacto, args, context) =>
-    context.dataloaders.direccionesContactoLoader.load(contacto.id),*/
+  direcciones: (personaContacto, args, context) =>
+    context.dataloaders.direccionesContactoLoader.load(personaContacto.idContacto),
   telefonos: (personaContacto, args, context) =>
     context.dataloaders.telefonosContactoLoader.load(personaContacto.idContacto),
   emails: (personaContacto, args, context) =>

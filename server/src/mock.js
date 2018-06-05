@@ -6,7 +6,7 @@ casual.seed(123);
 
 /* eslint-disable */
 const mocks = {
-  Int: () => casual.integer(from = 0 , to = 9999),
+  Int: () => casual.integer(casual.from = 0 , casual.to = 9999),
   Boolean: () => casual.coin_flip,
   String: () => casual.word,
 

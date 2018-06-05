@@ -7,7 +7,7 @@ type GrupoEmpresarial{
   correos: [ String! ]
   telefonos: [ String! ]
   contactos: [ PersonaContacto! ]
-  direccion: [ String! ]
+  direccion: String
   razonesSociales: [ String! ]
 }
 `;

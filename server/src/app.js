@@ -28,7 +28,8 @@ import context from './context';
 const PORT = 4000;
 const server = express();
 
-server.use('*', cors({ origin: `http://localhost:${PORT}` }));
+//server.use('*', cors({ origin: `http://localhost:${PORT}` }));
+server.use('*', cors({ origin: `http://localhost:3000` }));
 
 server.use(
   '/graphql',

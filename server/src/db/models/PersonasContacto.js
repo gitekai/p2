@@ -66,6 +66,11 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
       },
     });
+    Persona.hasMany(models.direccionesPersona, {
+      foreignKey: {
+        name: 'idPersonaContacto',
+      },
+    });
   };
 
   return Persona;
